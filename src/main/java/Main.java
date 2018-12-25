@@ -1,6 +1,5 @@
 import dnl.utils.text.table.TextTable;
 import model.Error;
-import model.Identifiers;
 import model.Token;
 import model.TokenParser;
 import utils.DictionaryParser;

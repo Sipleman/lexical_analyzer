@@ -132,16 +132,17 @@ public class TokenParser extends Tokenizer {
 
       if (twoSymbolsDelimiters.containsKey(buffer)) {
         ch = bufferedReader.read();
-        position++;
         if (twoSymbolsDelimiters.get(buffer).contains(ch)) {
           Token token = new Token(ch, position, line, category, 301);
           token.addCharacterToValue(ch);
           lexemes.add(token);
           buffer = bufferedReader.read();
+          position+=2;
           continue;
         } else {
           if(category == SymbolCategory.ONE_SYMBOL_DELIMITER) {
             lexemes.add(new Token(buffer, position, line, category, buffer));
+            position++;
           }else {
             errors.add(new Error(position, line, String.format(
                 "Incorrect two symbol delimiter at line: %d pos: %d", line,
@@ -154,6 +155,7 @@ public class TokenParser extends Tokenizer {
       if (category == SymbolCategory.ONE_SYMBOL_DELIMITER) {
         lexemes.add(new Token(buffer, position, line, category, buffer));
         buffer = bufferedReader.read();
+        position++;
         continue;
       }
       if (category == SymbolCategory.DIGIT) {
