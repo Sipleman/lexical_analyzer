@@ -20,14 +20,8 @@ public class TokenParserTest {
     final int lexemes = 7;
     final int errors = 0;
     final int constants = 0;
-    Map<String, Integer> keywords = null;
-    List<Integer> delims = null;
-    try {
-      keywords = DictionaryParser.readKeywordsFile("gramma/keywords");
-      delims = DictionaryParser.readDelimiters("gramma/one_symbol_delimiters");
-    } catch (IOException e) {
-      exit(-1);
-    }
+    Map<String, Integer> keywords = readKeywords();
+    List<Integer> delims = readDelims();
     TokenParser parser = new TokenParser(keywords, delims);
     parser.parse("src/test/java/testcases/case1");
 
@@ -44,14 +38,8 @@ public class TokenParserTest {
     final int lexemes = 8;
     final int errors = 0;
     final int constants = 1;
-    Map<String, Integer> keywords = null;
-    List<Integer> delims = null;
-    try {
-      keywords = DictionaryParser.readKeywordsFile("gramma/keywords");
-      delims = DictionaryParser.readDelimiters("gramma/one_symbol_delimiters");
-    } catch (IOException e) {
-      exit(-1);
-    }
+    Map<String, Integer> keywords = readKeywords();
+    List<Integer> delims = readDelims();
     TokenParser parser = new TokenParser(keywords, delims);
     parser.parse("src/test/java/testcases/case2");
 
@@ -68,14 +56,8 @@ public class TokenParserTest {
     final int lexemes = 18;
     final int errors = 2;
     int constants = 2;
-    Map<String, Integer> keywords = null;
-    List<Integer> delims = null;
-    try {
-      keywords = DictionaryParser.readKeywordsFile("gramma/keywords");
-      delims = DictionaryParser.readDelimiters("gramma/one_symbol_delimiters");
-    } catch (IOException e) {
-      exit(-1);
-    }
+    Map<String, Integer> keywords = readKeywords();
+    List<Integer> delims = readDelims();
     TokenParser parser = new TokenParser(keywords, delims);
     parser.parse("src/test/java/testcases/case3");
 
@@ -83,9 +65,43 @@ public class TokenParserTest {
     assertEquals(parser.getLexemes().size(), lexemes);
     assertEquals(parser.getErrors().size(), errors);
     assertEquals(parser.getConstants().size(), constants);
+  }
 
+  @Test
+  public void case4_test() throws IOException {
+    final int ident = 4;
+    final int lexemes = 19;
+    final int errors = 2;
+    int constants = 1;
+    Map<String, Integer> keywords = readKeywords();
+    List<Integer> delims = readDelims();
+
+    TokenParser parser = new TokenParser(keywords, delims);
+    parser.parse("src/test/java/testcases/case4");
+
+    assertEquals(parser.getIdentifiers().size(), ident);
+    assertEquals(parser.getLexemes().size(), lexemes);
+    assertEquals(parser.getErrors().size(), errors);
+    assertEquals(parser.getConstants().size(), constants);
 
   }
 
-
+  private Map<String, Integer> readKeywords() {
+    Map<String, Integer> keywords = null;
+    try {
+      keywords = DictionaryParser.readKeywordsFile("gramma/keywords");
+    } catch (IOException e) {
+      exit(-1);
+    }
+    return keywords;
+  }
+  private List<Integer> readDelims() {
+    List<Integer> delims = null;
+    try {
+      delims = DictionaryParser.readDelimiters("gramma/one_symbol_delimiters");
+    } catch (IOException e) {
+      exit(-1);
+    }
+    return delims;
+  }
 }
