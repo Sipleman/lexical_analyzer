@@ -9,6 +9,9 @@ public class Token {
   private int category;
 
   public int getCode() {
+    if(code>500 && code<600) {
+      return Integer.parseInt(value);
+    }
     return code;
   }
 
