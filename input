@@ -1,6 +1,11 @@
-value1 123     (***
+PROGRAM
 
 
- *) value1
-123
- ! (((* )
+AAA;
+
+VAR a,B:SIGNAL SIGNAL COMPLEX ;
+
+
+BEGIN
+END
+.
